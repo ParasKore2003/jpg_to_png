@@ -3,17 +3,19 @@ import os
 from PIL import Image
 
 #grab first and second arguement
-file_name = sys.argv[1]
-new_file_name = sys.argv[2]
+image_folder = sys.argv[1] #no error in truth
+output_folder = sys.argv[2]
 
 #check if new exists, if not create
-cwd = os.getcwd()
-file_exists = os.path.exists('cwd/new_file_name')
-if file_exists == False:
-    os.mkdir('cwd')
-print(os.path.exists('cwd/new_file_name'))
-#loop through Pokedex
+if not (os.path.exists(output_folder)):
+    os.makedirs(output_folder)
 
+#loop through Pokedex
+for filename in os.listdir(image_folder):
+    img = Image.open(f'{image_folder}{filename}')
+    clean_name = os.path.splitext(filename)[0]
+    img.save(f'{output_folder}{clean_name}.png','png')
+    print('all done!')
 #convert images to png
 
 #save to the new folder
